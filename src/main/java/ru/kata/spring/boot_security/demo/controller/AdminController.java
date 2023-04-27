@@ -8,6 +8,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,9 +25,11 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String getAdmin(Model model) {
-        List<User> users = userService.getListOfUsers();
-        model.addAttribute("users", users);
+    public String getAdmin(Model model, Principal principal) {
+
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
+
+        model.addAttribute("users",  userService.getListOfUsers());
         return "admin_page";
     }
 

@@ -9,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -19,21 +21,20 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
-    private String username;
+    private String firstName;
+    @Column
+    private String lastName;
     @Column
     private String password;
-//    @Column
-//    private String email;
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
+    @Column
+    private int age;
+    @Column
+    private String username;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -55,12 +56,45 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, Set<Role> roles) {
-        this.username = username;
+    public User(String firstName, String lastName, String password, int age, String username, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
+        this.age = age;
+        this.username = username;
         this.roles = roles;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+//    public String getEmail() {
+//        return this.email;
+//    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public long getId() {
         return id;
@@ -70,9 +104,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+
 
     public void setPassword(String password) {
         this.password = passwordEncoder().encode(password);
@@ -92,7 +124,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     @Override
@@ -115,5 +147,14 @@ public class User implements UserDetails {
         return true;
     }
 
-
+    public String getRolesString() {
+        return roles.stream().map(m->m.toString()).collect(Collectors.joining(" "));
+    }
+    public String getStringRoles() {
+        List<String> list = roles.stream()
+                .map(r->r.toString())
+                .sorted()
+                .collect(Collectors.toList());
+        return String.join(" ", list);
+    }
 }

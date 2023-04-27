@@ -17,7 +17,7 @@ public interface UserService extends UserDetailsService {
     @Transactional
     void deleteUser(Long id);
 
-    User findByUsername(String username);
+    User findByUsername(String email);
 
     void saveUser(User user);
 

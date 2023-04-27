@@ -30,28 +30,33 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUserById(long id) {
         return userRepository.getById(id);
     }
 
     @Override
+    @Transactional
     public List<User> getListOfUsers() {
         return userRepository.findAll();
     }
 
 
     @Override
+    @Transactional
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
