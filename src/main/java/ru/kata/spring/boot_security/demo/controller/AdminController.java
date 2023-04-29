@@ -24,20 +24,14 @@ public class AdminController {
         this.roleRepository = roleRepository;
     }
 
-    @GetMapping()
-    public String getAdmin(Model model, Principal principal) {
 
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
-
-        model.addAttribute("users",  userService.getListOfUsers());
-        return "admin_page";
-    }
-
-    @GetMapping("/new")// то, на какой юрл перейдет
+    @GetMapping()// то, на какой юрл перейдет
     public String addUser(Model model) {
-        model.addAttribute("roles", roleRepository.findAll());
-        model.addAttribute("user", new User());
-        return "new_page";
+
+        model.addAttribute("allUsers",  userService.getListOfUsers());
+        model.addAttribute("allRoles", roleRepository.findAll());
+        model.addAttribute("newUser", new User());
+        return "admin_page";
     }
 
     //
@@ -63,7 +57,7 @@ public class AdminController {
     }
 
     //
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";

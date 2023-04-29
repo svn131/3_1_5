@@ -88,9 +88,6 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-//    public String getEmail() {
-//        return this.email;
-//    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -122,7 +119,6 @@ public class User implements UserDetails {
         return this.password;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
@@ -147,14 +143,5 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getRolesString() {
-        return roles.stream().map(m->m.toString()).collect(Collectors.joining(" "));
-    }
-    public String getStringRoles() {
-        List<String> list = roles.stream()
-                .map(r->r.toString())
-                .sorted()
-                .collect(Collectors.toList());
-        return String.join(" ", list);
-    }
+
 }
