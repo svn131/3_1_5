@@ -24,18 +24,15 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     public UserServiceImp(UserRepository userRepository) {
-
         this.userRepository = userRepository;
     }
 
     @Override
-    @Transactional
     public User getUserById(long id) {
         return userRepository.getById(id);
     }
 
     @Override
-    @Transactional
     public List<User> getListOfUsers() {
         return userRepository.findAll();
     }
@@ -55,7 +52,6 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dbt
+    url: jdbc:mysql://localhost:3306/314db
     username: root
     password: MYSQL
 
@@ -14,7 +14,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -25,4 +25,3 @@ logging:
     org.springframework: debug
     org.hibernate: debug
 
-path_to_favicon: src/main/resources/static/favicon.ic
