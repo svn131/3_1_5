@@ -1,0 +1,28 @@
+# MySQL properties
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dbt
+    username: root
+    password: MYSQL
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  # Hibernate properties
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+# Logging properties
+logging:
+  level:
+    org.springframework: debug
+    org.hibernate: debug
+
+path_to_favicon: src/main/resources/static/favicon.ic
