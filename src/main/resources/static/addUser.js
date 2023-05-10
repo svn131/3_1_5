@@ -36,7 +36,7 @@ async function addUser() {
             firstName: addForm.firstName.value,
             lastName: addForm.lastName.value,
             age: addForm.age.value,
-            email: addForm.email.value,
+            username: addForm.email.value,
             password: addForm.password.value,
             roles: rolesList
         })
