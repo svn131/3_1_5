@@ -21,6 +21,6 @@ public interface UserService extends UserDetailsService {
 
     void saveUser(User user);
 
-
+    User findByEmail(String email);
 
 }

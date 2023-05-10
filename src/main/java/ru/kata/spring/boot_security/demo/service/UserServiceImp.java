@@ -7,11 +7,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +44,11 @@ public class UserServiceImp implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public User findByEmail(String email) {
+      return   userRepository.findByEmail(email);
+    }
+
 
     @Override
     @Transactional
@@ -58,16 +63,29 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findByUsername(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+
+        User user = findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                mapRolesToAuthorities(user.getRoles()));
+    }
+
+
 }

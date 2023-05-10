@@ -14,7 +14,7 @@
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid mr-auto">
                 <span class="navbar-brand">
-                    <strong th:text="${user.getUsername()}"></strong>
+                    <strong th:text="${user.getEmail()}"></strong>
                     <span>
                         <a th:text="' with roles: ' + ${#strings.setJoin(#authentication.getAuthorities(), ' ')}"></a>
                     </span>
@@ -73,7 +73,7 @@
                                             <td th:utext="${user.firstName}"></td>
                                             <td th:utext="${user.lastName}"></td>
                                             <td th:utext="${user.age}"></td>
-                                            <td th:utext="${user.username}"></td>
+                                            <td th:utext="${user.email}"></td>
                                             <td th:utext="${#strings.setJoin(user.roles, ' ')}"></td>
                                         </tr>
                                         </tbody>
