@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
 
@@ -18,10 +21,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserServiceImp userServiceImp;
 
+
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImp userServiceImp) {
         this.successUserHandler = successUserHandler;
         this.userServiceImp = userServiceImp;
+
+
 
     }
 
@@ -35,11 +41,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+                .formLogin()
+                .loginPage("/login") // указываем URL страницы с формой входа
+                .successHandler(successUserHandler)
+                .usernameParameter("email") // здесь меняем "username" на "email"
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
+    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(email -> {
+            User user = userServiceImp.findByEmail(email);
+            if (user == null) {
+                throw new UsernameNotFoundException(email);
+            }
+            return user;
+        });
     }
 
     @Bean

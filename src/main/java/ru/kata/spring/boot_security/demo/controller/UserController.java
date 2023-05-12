@@ -23,17 +23,13 @@ public class UserController {
     }
 @GetMapping()
     public String getUser(Model model, Principal principal) {
-//    System.out.println("======================================================="+principal.getName());
-//    System.out.println("11111111111111111111111111111111111111111111111111111111111111");
-//        User user = (User) userService.loadUserByEmail(principal.getName());
-//        model.addAttribute("user", user);
-//        return "user_page";
     String email = principal.getName();
     System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+ email);
     User user = userService.findByEmail(email);
     model.addAttribute("user", user);
     return "user_page";
     }
+
 
 
     }
