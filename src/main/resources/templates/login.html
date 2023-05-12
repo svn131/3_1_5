@@ -1,60 +1,10 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Login</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<form th:action="@{/login}" method="post">-->
-<!--    <div>-->
-<!--        <label for="inputEmail">Email: </label>-->
-<!--        <input type="email" id="inputEmail" name="email" required autofocus />-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <label for="inputPassword">Password: </label>-->
-<!--        <input type="password" id="inputPassword" name="password" required />-->
-<!--    </div>-->
-<!--    <button type="submit">Sign in</button>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Please sign in</title>-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"-->
-<!--          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"-->
-<!--          crossorigin="anonymous">-->
-<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"-->
-<!--          crossorigin="anonymous"/>-->
-<!--</head>-->
-<!--<body class="text-center">-->
-<!--<form class="form-signin" method="post" th:action="@{/login}">-->
-<!--    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-<!--    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>-->
-<!--    <label for="inputEmail" class="sr-only">Email address</label>-->
-<!--    <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>-->
-<!--    <label for="inputPassword" class="sr-only">Password</label>-->
-<!--    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>-->
-<!--    <div class="checkbox mb-3">-->
-<!--        <label>-->
-<!--            <input type="checkbox" value="remember-me"> Remember me-->
-<!--        </label>-->
-<!--    </div>-->
-<!--    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-<!--    <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Please sign in</title>
+    <link rel="icon" type="image/x-icon" href="/main/resouces/static/favicon.ico"/>
+<!--    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
           crossorigin="anonymous">
@@ -69,7 +19,6 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
 </form>
 </body>
 </html>

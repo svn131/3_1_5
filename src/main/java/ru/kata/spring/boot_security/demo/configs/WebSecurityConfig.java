@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userServiceImp = userServiceImp;
 
 
-
     }
 
     @Override
@@ -42,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login") // указываем URL страницы с формой входа
+                .loginPage("/login")
                 .successHandler(successUserHandler)
                 .usernameParameter("email") // здесь меняем "username" на "email"
                 .passwordParameter("password")

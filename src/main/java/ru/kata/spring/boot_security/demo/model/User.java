@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -147,6 +148,16 @@ public class User implements UserDetails {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getAge() == user.getAge() && Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getRoles(), user.getRoles());
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getPassword(), getAge(), getEmail(), getRoles());
+    }
 }

@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo;
+package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

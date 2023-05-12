@@ -46,7 +46,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User findByEmail(String email) {
-      return   userRepository.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
 
@@ -56,20 +56,11 @@ public class UserServiceImp implements UserService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = findByUsername(email);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+        return null;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
@@ -78,14 +69,12 @@ public class UserServiceImp implements UserService {
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-
         User user = findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
-//        return new  ru.kata.spring.boot_security.demo.model.User (user.getFirstName(),user.getLastName(), user.getPassword(), user.getAge(), user.getEmail(), user.getRoles());
     }
 
 
