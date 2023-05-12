@@ -85,6 +85,7 @@ public class UserServiceImp implements UserService {
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
+//        return new  ru.kata.spring.boot_security.demo.model.User (user.getFirstName(),user.getLastName(), user.getPassword(), user.getAge(), user.getEmail(), user.getRoles());
     }
 
 
