@@ -91,9 +91,7 @@ public class UserServiceImp implements UserService {
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111" + email);
         User user = findByEmail(email);
-        System.out.println("222222222222222222222222222222222222222222222222222222222222" + user.toString());
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }

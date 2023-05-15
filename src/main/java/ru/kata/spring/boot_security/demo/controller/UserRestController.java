@@ -21,11 +21,8 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @ResponseStatus
     @GetMapping()
     public ResponseEntity<User> getUser(Principal principal) {
-
-        System.out.println("33333333333333333333333333333333333333333333333333333333333333333333333");
         User user = userService.findByEmail(principal.getName());
         return ResponseEntity.ok(user);
     }
