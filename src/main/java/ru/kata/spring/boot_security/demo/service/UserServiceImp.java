@@ -84,32 +84,24 @@ public class UserServiceImp implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
-//        User user = findByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-//        }
-//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-//                mapRolesToAuthorities(user.getRoles()));
-//    }
-//
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
-//    }
-private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-    return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
-}
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
+        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
+    }
+
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111"+ email);
+        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111" + email);
         User user = findByEmail(email);
-        System.out.println("222222222222222222222222222222222222222222222222222222222222"+ user.toString());
+        System.out.println("222222222222222222222222222222222222222222222222222222222222" + user.toString());
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
-@Override
+
+    @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
