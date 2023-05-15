@@ -2,10 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dbt
+    url: jdbc:mysql://localhost:3306/mydbtest
     username: root
-    password: MYSQL
-
+    password: root
   mvc:
     hiddenmethod:
       filter:

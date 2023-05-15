@@ -7,7 +7,7 @@ async function thisUser() {
         .then(res => res.json())
         .then(data => {
             //info for nav-bar
-            $('#header-username').append(data.username);
+            $('#header-username').append(data.email);
             let roles = data.roles.map(role => role.roleName.replaceAll('ROLE_', '')).join(" ");
             $('#header-roles').append(roles);
 
@@ -17,7 +17,7 @@ async function thisUser() {
                 <td>${data.firstName}</td>
                 <td>${data.lastName}</td>
                 <td>${data.age}</td>
-                <td>${data.username}</td>
+                <td>${data.email}</td>
                 <td>${roles}</td>)`;
             $('#user-panel-tbody').append(user);
         })

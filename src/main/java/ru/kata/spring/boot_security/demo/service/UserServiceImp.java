@@ -1,5 +1,22 @@
 package ru.kata.spring.boot_security.demo.service;
 
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.stereotype.Service;
+//import ru.kata.spring.boot_security.demo.model.Role;
+//import ru.kata.spring.boot_security.demo.model.User;
+//import ru.kata.spring.boot_security.demo.repository.UserRepository;
+//
+//import javax.transaction.Transactional;
+//import java.util.Collection;
+//import java.util.List;
+//import java.util.Optional;
+//import java.util.Set;
+//import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,11 +24,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -57,23 +74,43 @@ public class UserServiceImp implements UserService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+//    @Override
+//    public User findByUsername(String username) {
+//        return null;
+//    }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        return null;
+    }
+//        User user = findByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+//        }
+//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+//                mapRolesToAuthorities(user.getRoles()));
+//    }
+//
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
+//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
+//    }
+private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
+    return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
+}
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111"+ email);
+        User user = findByEmail(email);
+        System.out.println("222222222222222222222222222222222222222222222222222222222222"+ user.toString());
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
+@Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

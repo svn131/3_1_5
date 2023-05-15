@@ -16,10 +16,12 @@ public interface UserService extends UserDetailsService {
 
     void deleteUser(Long id);
 
-    User findByUsername(String email);
+//    User findByUsername(String email);
 
 
     void saveUser(User user);
+
+    User findByEmail(String email);
 
 
 
