@@ -25,28 +25,16 @@ public class User implements UserDetails {
     private String lastName;
 
     private String password;
+
     private int age;
 
     private String email;
-
 
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    private PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
 
     public User() {
@@ -58,6 +46,18 @@ public class User implements UserDetails {
         this.password = password;
         this.age = age;
         this.email = email;
+        this.roles = roles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -100,12 +100,11 @@ public class User implements UserDetails {
 
 
     public void setPassword(String password) {
-        this.password = passwordEncoder().encode(password);
+        this.password = password;
     }
 
 
     @Override
-    @Transactional
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

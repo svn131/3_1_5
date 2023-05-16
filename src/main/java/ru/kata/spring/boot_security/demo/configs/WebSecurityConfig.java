@@ -34,18 +34,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/adminProfile/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(successUserHandler)
-                .usernameParameter("email") // здесь меняем "username" на "email"
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
+
 
 
     }

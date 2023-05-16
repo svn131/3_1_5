@@ -24,4 +24,14 @@ logging:
     org.springframework: debug
     org.hibernate: debug
 
+
+
 path_to_favicon: src/main/resources/static/favicon.ic
+
+
+#server:
+#  servlet:
+#    session:
+#      cookie:
+#        http-only: false
+#      timeout: 1m
