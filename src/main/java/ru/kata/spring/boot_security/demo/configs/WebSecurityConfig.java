@@ -36,13 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("api/admin/**").hasRole("ADMIN")
+                .antMatchers("api/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successHandler(successUserHandler)
+//                .successHandler(successUserHandler)
+
                 .usernameParameter("email") // здесь меняем "username" на "email"
                 .passwordParameter("password")
                 .permitAll()
@@ -50,6 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
+
+
+//    @Override// отключение секьюрности
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable() // отключаем CSRF, чтобы ваши тесты проходили
+//                .authorizeRequests().anyRequest().permitAll(); // разрешаем все запросы
+//    }
+
 
 
     @Override
